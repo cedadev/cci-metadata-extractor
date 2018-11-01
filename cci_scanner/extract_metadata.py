@@ -8,12 +8,12 @@ Usage:
 
 """
 
-
 from docopt import docopt
 import os
 from handlers.factory import HandlerFactory
 import conf.defaults as defaults
 import json
+
 
 class Dataset(object):
     dataset_metadata = {}
@@ -25,6 +25,8 @@ class Dataset(object):
         self.dataset_path = dataset_path
 
         self.file_list = self._get_files()
+
+        print ("{} files to scan".format(len(self.file_list)))
 
         self.handler_factory = HandlerFactory()
 
@@ -74,7 +76,7 @@ class Dataset(object):
         default_vars = [var for var in self.dataset_metadata if var in self.DEFAULT_VARIABLES]
 
         for var in default_vars:
-            self.dataset_metadata[var].update({'default':True})
+            self.dataset_metadata[var].update({'default': True})
 
     def update_display(self):
 
@@ -83,7 +85,6 @@ class Dataset(object):
         for default in display_defaults:
             self.dataset_metadata[default]['display'].update(self.VARIABLE_DISPLAY_SETTINGS[default])
 
-
     def extract_metadata(self):
 
         for file in self.file_list:
@@ -91,7 +92,6 @@ class Dataset(object):
             handler = self.handler_factory.get_handler(file)
 
             if handler:
-
                 file_meta = handler.get_metadata()
 
                 print "File procesed %s" % file
@@ -101,26 +101,19 @@ class Dataset(object):
         self.update_defaults()
         self.update_display()
 
-
-
     def write_metadata(self, filename):
 
         with open(filename, 'w') as writer:
             writer.write(json.dumps(self.dataset_metadata))
 
 
-
 if __name__ == '__main__':
-
     args = docopt(__doc__)
+
+    dataset_name = os.path.dirname(args['DATASET'])
 
     dataset = Dataset(args['DATASET'])
 
-    # print (dataset.file_list)
-
     dataset.extract_metadata()
 
-    # print (dataset.dataset_metadata['stemp_unc']['min'])
-    # print (type(dataset.dataset_metadata['stemp_unc']['min']))
-
-    dataset.write_metadata(os.path.join(args['OUTPUT'],'ATSR2.json'))
+    dataset.write_metadata(os.path.join(args['OUTPUT'], "{}.json".format(dataset_name)))
