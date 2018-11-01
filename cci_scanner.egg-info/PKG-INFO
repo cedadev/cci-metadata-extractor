@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: cci-scanner
+Version: 0.1.0
+Summary: Collection of scripts and handlers to extract metadata from CCI datasets
+Home-page: https://github.com/cedadev/cci_scanner
+Author: Richard Smith
+Author-email: richard.d.smith@stfc.ac.uk
+License: BSD - See ceda_example/LICENSE file for details
+Description: # CCI Metadata Extractor
+        
+        Package to read CCI datasets and extract high level metadata into a JSON object for each dataset.
+        
+        
+        ## JSON Structure
+        
+        ```json
+        {
+            "var": {
+                "default":"bool",
+                "type": "primary | auxiliary",
+                "parent": "string", #only if type == auxiliary
+                "min":"float",
+                "max": "float",
+                "units": "string",
+                "display": {
+                    "min": "float",
+                    "max": "float",
+                    "colour": "string",
+                    "class_encoding": ["array"]
+              }
+            },
+            ...
+            "var_n": {}
+        }
+        ```
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=2.7.0, <3.0.*
+Description-Content-Type: text/markdown
