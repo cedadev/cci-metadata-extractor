@@ -13,7 +13,7 @@ import os
 from handlers.factory import HandlerFactory
 import conf.defaults as defaults
 import json
-
+from tqdm import tqdm
 
 class Dataset(object):
     dataset_metadata = {}
@@ -87,7 +87,7 @@ class Dataset(object):
 
     def extract_metadata(self):
 
-        for file in self.file_list:
+        for file in tqdm(self.file_list, desc="Extracting metadata"):
 
             handler = self.handler_factory.get_handler(file)
 
