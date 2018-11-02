@@ -104,13 +104,17 @@ class Dataset(object):
     def write_metadata(self, filename):
 
         with open(filename, 'w') as writer:
-            writer.write(json.dumps(self.dataset_metadata))
+            writer.write(json.dumps(self.dataset_metadata, indent=4))
 
 
 if __name__ == '__main__':
     args = docopt(__doc__)
 
-    dataset_name = os.path.dirname(args['DATASET'])
+
+    if args["DATASET"].endswith("/"):
+        dataset_name = os.path.basename(args['DATASET'][:-1])
+    else:
+        dataset_name = os.path.basename(args['DATASET'])
 
     dataset = Dataset(args['DATASET'])
 
