@@ -17,7 +17,8 @@ class NetCDFReader(HandlerBase):
         display = {
             "display_max": None,
             "display_min": None,
-            "color_map": self.DEFAULT_COLOR_MAP
+            "color_map": self.DEFAULT_COLOR_MAP,
+            "scale": "linear"
         }
 
         display_min = None
