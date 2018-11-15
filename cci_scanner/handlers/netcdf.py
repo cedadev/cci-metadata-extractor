@@ -1,6 +1,7 @@
 import netCDF4
 import pprint
 from base import HandlerBase
+from collections import OrderedDict
 
 
 class NetCDFReader(HandlerBase):
@@ -56,7 +57,7 @@ class NetCDFReader(HandlerBase):
         :return: variable dictionary object
         """
 
-        variables = {}
+        variables = OrderedDict()
 
         for var, data in netcdf_object.variables.iteritems():
             variable = {

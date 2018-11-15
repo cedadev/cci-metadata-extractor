@@ -15,9 +15,10 @@ import conf.defaults as defaults
 import json
 from tqdm import tqdm
 from datetime import datetime
+from collections import OrderedDict
 
 class Dataset(object):
-    dataset_metadata = {}
+    dataset_metadata = OrderedDict()
     DEFAULT_VARIABLES = defaults.DEFAULT_VARIABLES
     VARIABLE_DISPLAY_SETTINGS = defaults.VARIABLE_DISPLAY_SETTINGS
 
