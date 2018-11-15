@@ -2,12 +2,12 @@ import netCDF4
 import pprint
 from base import HandlerBase
 from collections import OrderedDict
+import math
 
 
 class NetCDFReader(HandlerBase):
-    IGNORE_VARS = ('time', 'lat', 'lon')
 
-    def get_display(self, var_data):
+    def get_display(self, var_data, var_max, var_min):
         """
         Generate and return the display dictionary
         :param var_data: Data attributed to the variable
@@ -20,17 +20,35 @@ class NetCDFReader(HandlerBase):
             "color_map": self.DEFAULT_COLOR_MAP
         }
 
+        display_min = None
+        display_max = None
+
         # Find display min
         keys = ("valid_min",)
         for key in keys:
             if hasattr(var_data, key):
-                display["display_min"] = float(getattr(var_data, key))
+                display_min = float(getattr(var_data, key))
 
-        # Find display min
+                if display_min is not None:
+                    if display_min < var_min:
+                        display_min = math.floor(var_max)
+            else:
+                display_min = math.floor(var_min)
+
+        # Find display max
         keys = ("valid_max",)
         for key in keys:
             if hasattr(var_data, key):
-                display["display_max"] = float(getattr(var_data, key))
+                display_max = float(getattr(var_data, key))
+
+                if display_max is not None:
+                    if display_max > var_max:
+                        display_max = math.ceil(var_max)
+            else:
+                display_max = math.ceil(var_max)
+
+        display["display_min"] = display_min
+        display["display_max"] = display_max
 
         return display
 
@@ -44,11 +62,10 @@ class NetCDFReader(HandlerBase):
 
         if hasattr(data, "long_name") and hasattr(data, "standard_name"):
 
-            if getattr(data,"long_name") == getattr(data,"standard_name"):
+            if getattr(data, "long_name") == getattr(data, "standard_name"):
                 return "coordinate"
 
         return "primary"
-
 
     def get_variables(self, netcdf_object):
         """
@@ -60,14 +77,17 @@ class NetCDFReader(HandlerBase):
         variables = OrderedDict()
 
         for var, data in netcdf_object.variables.iteritems():
+            var_max = float(data[:].max())
+            var_min = float(data[:].min())
+
             variable = {
                 'default': False,
                 'units': data.units,
                 'statistics': {
-                    'max': float(data[:].max()),
-                    'min': float(data[:].min())
+                    'max': var_max,
+                    'min': var_min
                 },
-                'display': self.get_display(data),
+                'display': self.get_display(data, var_max, var_min),
                 'type': self.get_type(data)
             }
 
