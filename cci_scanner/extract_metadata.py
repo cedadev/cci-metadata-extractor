@@ -14,6 +14,7 @@ from handlers.factory import HandlerFactory
 import conf.defaults as defaults
 import json
 from tqdm import tqdm
+from datetime import datetime
 
 class Dataset(object):
     dataset_metadata = {}
@@ -101,6 +102,8 @@ class Dataset(object):
         self.update_defaults()
         self.update_display()
 
+        self.dataset_metadata["creation_date"] = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+        
     def write_metadata(self, filename):
 
         with open(filename, 'w') as writer:
