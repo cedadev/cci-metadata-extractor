@@ -46,8 +46,10 @@ class NetCDFReader(HandlerBase):
             variable = {
                 'default': False,
                 'units': data.units,
-                'max': float(data[:].max()),
-                'min': float(data[:].min()),
+                'statistics': {
+                    'max': float(data[:].max()),
+                    'min': float(data[:].min())
+                },
                 'display': self.get_display(data),
                 'type': "primary"
             }

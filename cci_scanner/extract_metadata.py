@@ -52,12 +52,12 @@ class Dataset(object):
 
             else:
                 # min - Update min
-                if self.dataset_metadata[key]['min'] > file_meta[key]['min']:
-                    self.dataset_metadata[key]['min'] = file_meta[key]['min']
+                if self.dataset_metadata[key]['statistics']['min'] > file_meta[key]['statistics']['min']:
+                    self.dataset_metadata[key]['statistics']['min'] = file_meta[key]['statistics']['min']
 
                 # max - Update max
-                if self.dataset_metadata[key]['max'] < file_meta[key]['max']:
-                    self.dataset_metadata[key]['max'] = file_meta[key]['max']
+                if self.dataset_metadata[key]['statistics']['max'] < file_meta[key]['statistics']['max']:
+                    self.dataset_metadata[key]['statistics']['max'] = file_meta[key]['statistics']['max']
 
                 # units - Overwrite
                 self.dataset_metadata[key]['units'] = file_meta[key]['units']
