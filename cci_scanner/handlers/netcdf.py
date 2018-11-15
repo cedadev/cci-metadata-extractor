@@ -33,6 +33,22 @@ class NetCDFReader(HandlerBase):
 
         return display
 
+    def get_type(self, data):
+        """
+        Get the variable type. If long_name and standard_name are the same.
+        It is a coordinate
+        :param data: The variable data
+        :return: "primary" (default) | "coordinate"
+        """
+
+        if hasattr(data, "long_name") and hasattr(data, "standard_name"):
+
+            if getattr(data,"long_name") == getattr(data,"standard_name"):
+                return "coordinate"
+
+        return "primary"
+
+
     def get_variables(self, netcdf_object):
         """
         Take a netcdf object and extract the variables
@@ -51,7 +67,7 @@ class NetCDFReader(HandlerBase):
                     'min': float(data[:].min())
                 },
                 'display': self.get_display(data),
-                'type': "primary"
+                'type': self.get_type(data)
             }
 
             # Add the variable metadata to the main dictionary
