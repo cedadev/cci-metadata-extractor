@@ -17,6 +17,7 @@ from tqdm import tqdm
 from datetime import datetime
 from collections import OrderedDict
 
+
 class Dataset(object):
     dataset_metadata = OrderedDict()
     DEFAULT_VARIABLES = defaults.DEFAULT_VARIABLES
@@ -103,8 +104,11 @@ class Dataset(object):
         self.update_defaults()
         self.update_display()
 
-        self.dataset_metadata["creation_date"] = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-        
+        self.dataset_metadata["metadata"] = {
+            "creation_date": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+            "dataset": self.dataset_path
+        }
+
     def write_metadata(self, filename):
 
         with open(filename, 'w') as writer:
@@ -113,7 +117,6 @@ class Dataset(object):
 
 if __name__ == '__main__':
     args = docopt(__doc__)
-
 
     if args["DATASET"].endswith("/"):
         dataset_name = os.path.basename(args['DATASET'][:-1])
