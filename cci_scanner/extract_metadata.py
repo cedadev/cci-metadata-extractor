@@ -97,7 +97,7 @@ class Dataset(object):
             if handler:
                 file_meta = handler.get_metadata()
 
-                print "File procesed %s" % file
+                tqdm.write( "File procesed %s" % file)
 
                 self.merge_metadata(file_meta)
 

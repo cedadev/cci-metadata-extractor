@@ -3,6 +3,7 @@ import pprint
 from base import HandlerBase
 from collections import OrderedDict
 import math
+import numpy as np
 
 
 class NetCDFReader(HandlerBase):
@@ -33,7 +34,8 @@ class NetCDFReader(HandlerBase):
                 if display_min is not None:
                     if display_min < var_min:
                         display_min = math.floor(var_max)
-            else:
+
+            elif var_min is not None:
                 display_min = math.floor(var_min)
 
         # Find display max
@@ -42,10 +44,11 @@ class NetCDFReader(HandlerBase):
             if hasattr(var_data, key):
                 display_max = float(getattr(var_data, key))
 
-                if display_max is not None:
+                if var_max is not None:
                     if display_max > var_max:
                         display_max = math.ceil(var_max)
-            else:
+
+            elif var_max is not None:
                 display_max = math.ceil(var_max)
 
         display["display_min"] = display_min
@@ -78,12 +81,19 @@ class NetCDFReader(HandlerBase):
         variables = OrderedDict()
 
         for var, data in netcdf_object.variables.iteritems():
-            var_max = float(data[:].max())
-            var_min = float(data[:].min())
+            data_array = data[:]
+
+            try:
+                var_max = float(data_array.max())
+                var_min = float(data_array.min())
+
+            except TypeError:
+                var_min = None
+                var_max = None
 
             variable = {
                 'default': False,
-                'units': data.units,
+                'units': getattr(data,'units', None),
                 'statistics': {
                     'max': var_max,
                     'min': var_min
