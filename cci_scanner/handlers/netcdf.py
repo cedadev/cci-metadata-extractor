@@ -63,10 +63,9 @@ class NetCDFReader(HandlerBase):
         :param data: The variable data
         :return: "primary" (default) | "coordinate"
         """
+        if hasattr(data, "name") and hasattr(data, "coordinates"):
 
-        if hasattr(data, "long_name") and hasattr(data, "standard_name"):
-
-            if getattr(data, "long_name") == getattr(data, "standard_name"):
+            if data.name == data.dimensions[0]:
                 return "coordinate"
 
         return "primary"

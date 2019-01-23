@@ -21,6 +21,15 @@ DEFAULT_VARIABLES = [
     'analysed_sst',                     # esacci.SST.*.L4.SSTdepth.*
 ]
 
+DEFAULT_COORDINATES = [
+
+
+]
+
+AUXILIARY_COORDINATES = [
+
+]
+
 VARIABLE_DISPLAY_SETTINGS = {
     # LC CCI
     'lccs_class': dict(color_map='land_cover_cci'),
