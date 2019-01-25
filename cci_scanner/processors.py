@@ -239,7 +239,8 @@ class Dataset(object):
 
         self.dataset_metadata['metadata'] = {
             'creation_date': datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
-            'dataset': self.dataset_path
+            'dataset': self.dataset_path,
+            'dataset_id': self.id
         }
 
     def write_metadata(self, filename):
