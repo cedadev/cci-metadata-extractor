@@ -2,6 +2,14 @@
 
 Package to read CCI datasets and extract high level metadata into a JSON object for each dataset.
 
+## Setup
+
+`pip install -r requirements.txt`
+
+## CLI Usage
+
+`python extract_metadata.py PATH_TO_DATASET PATH_TO_OUTPUT_DIR [--mapping PATH_TO_ID_MAP]`
+
 ## JSON Structure
 
 ```json
