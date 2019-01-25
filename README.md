@@ -75,22 +75,26 @@ You could override valuses in the output using this matching.
 E.g.
 
 MODIS Longitude Values:
-
-    "lon": {
-        "default": false, 
-        "units": "degrees_east", 
-        "statistics": {
-            "max": 179.75, 
-            "min": -179.75
-        }, 
-        "type": "primary", 
-        "display": {
-            "display_max": 180.0, 
-            "color_map": "inferno", 
-            "display_min": 179.0, 
-            "scale": "linear"
-        }
-    }
+    
+```json
+{
+  "lon": {
+      "default": false, 
+      "units": "degrees_east", 
+      "statistics": {
+         "max": 179.75, 
+         "min": -179.75
+      }, 
+      "type": "primary", 
+      "display": {
+         "display_max": 180.0, 
+         "color_map": "inferno", 
+         "display_min": 179.0, 
+         "scale": "linear"
+      }
+  }
+}
+```
     
 Example setup of custom_mapping.json
 
