@@ -28,4 +28,4 @@ dataset = Dataset(args['DATASET'], **kwargs)
 
 dataset.extract_metadata()
 
-dataset.write_metadata(os.path.join(args['OUTPUT'], "{}.json".format(dataset.id if dataset.id else dataset_name)))
+dataset.write_metadata(os.path.join(args['OUTPUT'], "display_metadata_{}.json".format(dataset.id if dataset.id else dataset_name)))
