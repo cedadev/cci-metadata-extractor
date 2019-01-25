@@ -21,8 +21,7 @@ DEFAULT_VARIABLES = [
     'analysed_sst',                     # esacci.SST.*.L4.SSTdepth.*
 ]
 
-DEFAULT_COORDINATES = [
-
+COORDINATE_VARIABLES = [
 
 ]
 
